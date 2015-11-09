@@ -186,7 +186,7 @@ define('livecoding-demo/components/forum-post', ['exports', 'ember'], function (
 		actions: {
 			upvote: function upvote() {
 				var post = this.get('post');
-				post.set('upvotes', post.get('upvotes') + 1);
+				post.set('likes', post.get('likes') + 1);
 				post.save();
 				console.log('called upvote in forum-post');
 				this.sendAction('upvote', post.get('upvotes'));

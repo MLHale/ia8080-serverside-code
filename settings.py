@@ -101,6 +101,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     '/var/www/myapp/static/',
 )
+import myapp.rest_framework_config
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
@@ -108,5 +109,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated'
     ],
-    
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'myapp.rest_framework_config.CsrfExemptSessionAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+
 }
