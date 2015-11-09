@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
-from localsettings import SECRET_KEY
+from localsettings import *
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -36,6 +36,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #project apps
+    'myapp.api',
+    'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -48,8 +51,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
 )
-
-ROOT_URLCONF = 'urls'
 
 TEMPLATES = [
     {
@@ -66,9 +67,6 @@ TEMPLATES = [
         },
     },
 ]
-
-WSGI_APPLICATION = 'wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
@@ -99,3 +97,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
