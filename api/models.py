@@ -25,9 +25,9 @@ class Forumpost(models.Model):
     promoted = models.BooleanField(default=False)
     likes = models.IntegerField(default=0)
     tags = models.ManyToManyField('tag', blank=True)
-    
+
     class Meta:
-        #This will be used by the admin interface      
+        #This will be used by the admin interface
         verbose_name_plural = "Forumposts"
 
 class ForumpostAdmin(admin.ModelAdmin):
