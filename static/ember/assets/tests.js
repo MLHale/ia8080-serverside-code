@@ -43,7 +43,7 @@ define('livecoding-demo/tests/controllers/auth.jshint', ['exports'], function (e
 
   QUnit.module('JSHint - controllers');
   QUnit.test('controllers/auth.js should pass jshint', function (assert) {
-    assert.ok(false, 'controllers/auth.js should pass jshint.\ncontrollers/auth.js: line 14, col 22, Expected \'===\' and instead saw \'==\'.\n\n1 error');
+    assert.ok(false, 'controllers/auth.js should pass jshint.\ncontrollers/auth.js: line 33, col 49, Unnecessary semicolon.\ncontrollers/auth.js: line 47, col 15, Missing semicolon.\ncontrollers/auth.js: line 13, col 17, \'remember\' is defined but never used.\ncontrollers/auth.js: line 36, col 22, \'response\' is defined but never used.\n\n4 errors');
   });
 });
 define('livecoding-demo/tests/controllers/forum.jshint', ['exports'], function (exports) {

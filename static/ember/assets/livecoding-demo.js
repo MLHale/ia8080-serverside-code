@@ -130,21 +130,48 @@ define('livecoding-demo/controllers/array', ['exports', 'ember'], function (expo
 define('livecoding-demo/controllers/auth', ['exports', 'ember'], function (exports, _ember) {
 	exports['default'] = _ember['default'].Controller.extend({
 		username: '',
-		loggedIn: false,
+		isLoggedIn: false,
 		errorMsg: '',
 		remember: false,
 		actions: {
 			login: function login() {
 				//do stuff to authenticate here
+				var username = this.get('username');
+				var password = this.get('password');
+				var remember = this.get('remember');
+				var data = {
+					'username': username,
+					'password': password };
+				var controllerObj = this;
+				_ember['default'].$.post('../api/session/', data, function (response) {
+					if (response.isauthenticated) {
+						//success
+						console.log('Login POST Request to ../api/session/ was successful.');
+						controllerObj.set('username', response.username);
+						controllerObj.set('userid', response.userid);
+						controllerObj.set('isLoggedIn', true);
+					} else {
+						//errors
+						console.log('Login POST Request to ../api/session/ was successful.');
+						controllerObj.set('errorMsg', response.message);
+					}
+				});
+			},
+			logout: function logout() {
+				var remember = this.get('remember');;
+				var controllerObj = this;
+				_ember['default'].$.ajax({ url: '../api/session/', type: 'DELETE' }).then(function (response) {
+					console.log('Logout success.');
+					controllerObj.set('isLoggedIn', false);
+					controllerObj.set('errorMsg', '');
+					controllerObj.set('username', '');
+					controllerObj.set('userid', '');
+					if (!remember) {
+						//save to username and pass to local storage
 
-				var user = this.get('username');
-				console.log('login as: ' + user);
-				if (user == "") {
-					this.set('errorMsg', 'enter a username');
-				} else {
-					this.set('loggedIn', true);
-					this.transitionTo('home');
-				}
+					}
+					controllerObj.transitionToRoute('auth');
+				});
 			}
 		}
 	});

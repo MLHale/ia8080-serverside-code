@@ -17,6 +17,7 @@ urlpatterns = [
 
     #class-based view approach
     #url(r'^$', views.api_root), #needed if you use all class-based views and want them to show up in the landing page for the browsable api
+    url(r'^session/', views.Session.as_view()),
     url(r'^forumposts/$', views.ForumpostList.as_view(), name='forumpost-list'),
     url(r'^forumposts/(?P<pk>[0-9]+)/$', views.ForumpostDetail.as_view(), name='forumpost-detail'),
 ]
