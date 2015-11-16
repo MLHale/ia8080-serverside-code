@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib import admin
 from myapp.api.validators import *
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 class Tag(models.Model):
@@ -28,6 +29,16 @@ class Forumpost(models.Model):
     promoted = models.BooleanField(default=False)
     likes = models.IntegerField(default=0)
     tags = models.ManyToManyField('tag', blank=True)
+
+    """
+    def clean(self):
+        if 'shit' in (self.title + self.content):
+            raise ValidationError('post contains profanity')
+    """
+    
+    def clean(self):
+        self.title = self.title.replace('shit','****')
+        self.content = self.content.replace('shit','****')
 
     class Meta:
         #This will be used by the admin interface

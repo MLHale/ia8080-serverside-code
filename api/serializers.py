@@ -4,9 +4,6 @@ from rest_framework import serializers
 from django.contrib.auth.models import *
 from myapp.api.models import *
 
-from rest_framework import serializers
-
-
 class ForumpostSerializer(serializers.ModelSerializer):
     author = serializers.SlugRelatedField(slug_field='username', queryset=User.objects.all())
     tags = serializers.SlugRelatedField(slug_field="name", many=True, queryset=Tag.objects.all())
@@ -22,6 +19,23 @@ class ForumpostSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("string %s contains invalid 'teststr' string" % value)
 
         return value
+
+    def validate_author(self, value):
+        if not self.context['request'].user == value:
+            raise serializers.ValidationError('You cannot create a post as another user')
+
+        return value
+    # def validate(self, data):
+    #     if 'shit' in (data['title'] + data['content']):
+    #         raise serializers.ValidationError('Post contains profanity')
+
+    #     return data
+
+    def validate(self, data):
+        data['title'] = data['title'].replace('shit','****')
+        data['content'] = data['content'].replace('shit','****')
+        return data
+
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
