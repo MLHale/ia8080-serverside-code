@@ -4,12 +4,24 @@ from rest_framework import serializers
 from django.contrib.auth.models import *
 from myapp.api.models import *
 
+from rest_framework import serializers
+
+
 class ForumpostSerializer(serializers.ModelSerializer):
     author = serializers.SlugRelatedField(slug_field='username', queryset=User.objects.all())
     tags = serializers.SlugRelatedField(slug_field="name", many=True, queryset=Tag.objects.all())
     class Meta:
         model = Forumpost
         fields = ('id','title', 'content', 'author', 'promoted', 'likes', 'tags', 'url')
+
+    def validate_content(self, value):
+        """
+        Check that the content field doesn't contain the keyword javascript.
+        """
+        if "teststr" in value:
+            raise serializers.ValidationError("string %s contains invalid 'teststr' string" % value)
+
+        return value
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:

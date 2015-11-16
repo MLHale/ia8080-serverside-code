@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib import admin
+from myapp.api.validators import *
 
 # Create your models here.
 class Tag(models.Model):
@@ -22,7 +23,7 @@ class Forumpost(models.Model):
     This is a forum post for storing user submitted post entries.
     """
     title = models.CharField(max_length=40, blank=False)
-    content = models.TextField(blank=False)
+    content = models.TextField(blank=False, validators=[removeJavascriptKeyword])
     author = models.ForeignKey(User)
     promoted = models.BooleanField(default=False)
     likes = models.IntegerField(default=0)
