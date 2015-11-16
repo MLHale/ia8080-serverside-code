@@ -3577,7 +3577,7 @@ define('livecoding-demo/templates/components/forum-post', ['exports'], function 
           morphs[1] = dom.createMorphAt(element2,2,2);
           morphs[2] = dom.createMorphAt(element1,3,3);
           morphs[3] = dom.createMorphAt(element1,5,5);
-          morphs[4] = dom.createMorphAt(dom.childAt(element0, [3]),1,1);
+          morphs[4] = dom.createUnsafeMorphAt(dom.childAt(element0, [3]),1,1);
           morphs[5] = dom.createMorphAt(dom.childAt(element0, [5]),1,1);
           return morphs;
         },
@@ -3586,7 +3586,7 @@ define('livecoding-demo/templates/components/forum-post', ['exports'], function 
           ["content","upvotes",["loc",[null,[4,137],[4,148]]]],
           ["block","link-to",["forum.forumpost",["get","post.id",["loc",[null,[5,30],[5,37]]]]],[],0,null,["loc",[null,[5,1],[5,60]]]],
           ["content","author",["loc",[null,[5,63],[5,73]]]],
-          ["content","content",["loc",[null,[7,2],[7,13]]]],
+          ["content","content",["loc",[null,[7,2],[7,15]]]],
           ["block","each",[["get","tags",["loc",[null,[10,17],[10,21]]]]],[],1,null,["loc",[null,[10,2],[12,11]]]]
         ],
         locals: [],
@@ -4786,7 +4786,7 @@ catch(err) {
 if (runningTests) {
   require("livecoding-demo/tests/test-helper");
 } else {
-  require("livecoding-demo/app")["default"].create({"API_HOST":"http://localhost:8081","name":"livecoding-demo","version":"0.0.0+8b321615","API_NAMESPACE":"api","API_ADD_TRAILING_SLASHES":true});
+  require("livecoding-demo/app")["default"].create({"API_HOST":"http://localhost:8081","name":"livecoding-demo","version":"0.0.0+eb1ede5d","API_NAMESPACE":"api","API_ADD_TRAILING_SLASHES":true});
 }
 
 /* jshint ignore:end */

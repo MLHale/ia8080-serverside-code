@@ -5,7 +5,7 @@ from django.contrib.auth.models import *
 from myapp.api.models import *
 
 class ForumpostSerializer(serializers.ModelSerializer):
-    author = serializers.SlugRelatedField(read_only=True,slug_field='username')
+    author = serializers.SlugRelatedField(slug_field='username', queryset=User.objects.all())
     tags = serializers.SlugRelatedField(slug_field="name", many=True, queryset=Tag.objects.all())
     class Meta:
         model = Forumpost
